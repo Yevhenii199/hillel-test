@@ -20,3 +20,9 @@ console.log(typeof Symbol() )
 console.log(typeof {});
 
 console.log(typeof function(){});
+
+//3.2
+const a = 5;
+const b = 10;
+const c = 15;
+console.log(`Thirty — is ${a + b + c}, but not ${2 * a + b + c}.`);
