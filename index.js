@@ -26,3 +26,15 @@ const a = 5;
 const b = 10;
 const c = 15;
 console.log(`Thirty — is ${a + b + c}, but not ${2 * a + b + c}.`);
+
+//3.3
+function splitNumber(num) {
+    // Перевірка, чи число є п'ятизначним
+    if (num >= 10000 && num <= 99999) {
+        // Перетворюємо число на рядок і розбиваємо на масив цифр
+        let digits = num.toString().split('');
+        // Об'єднуємо цифри через пробіл і виводимо результат
+        console.log(digits.join(' '));
+    }
+}
+splitNumber(10369);
