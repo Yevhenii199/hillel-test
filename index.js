@@ -22,10 +22,12 @@ console.log(typeof {});
 console.log(typeof function(){});
 
 //3.2
-const a = 5;
-const b = 10;
-const c = 15;
-console.log(`Thirty — is ${a + b + c}, but not ${2 * a + b + c}.`);
+let line1 = "Maxim";
+let line2 = "Yevhenii";
+let line3 = "Dima";
+let lines = [line1, line2, line3];
+lines.sort(() => Math.random() - 0.5);
+console.log(lines.join("\n"));
 
 //3.3
 function splitNumber(num) {
@@ -38,3 +40,6 @@ function splitNumber(num) {
     }
 }
 splitNumber(10369);
+
+
+
