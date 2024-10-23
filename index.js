@@ -46,25 +46,35 @@ let userName = prompt("What is your name?");
 alert(`Hello, ${userName}! How are you?`);
 
 //4.2
-function checkDigits(number) {
+function checkThreeDigitNumber(number) {
+    // Перевірка, чи є число тризначним
     if (number < 100 || number > 999) {
         return "Будь ласка, введіть тризначне число.";
     }
 
+    // Отримуємо цифри числа
     const digits = String(number).split('').map(Number);
     
+    // Перевірка, чи всі цифри однакові
     const allEqual = digits[0] === digits[1] && digits[1] === digits[2];
-    const hasDuplicates = new Set(digits).size < digits.length;
+
+    // Перевірка на наявність повторюваних цифр
+    const hasDuplicates = 
+        digits[0] === digits[1] || 
+        digits[0] === digits[2] || 
+        digits[1] === digits[2];
 
     return {
         allEqual,
         hasDuplicates
     };
 }
-// Приклад використання:
-const userInput = 121; // Замість цього введіть тризначне число
-const result = checkDigits(userInput);
-console.log(result); // { allEqual: false, hasDuplicates: true }
+
+// Приклад використання
+const userInput = prompt("Введіть тризначне число:");
+const number = parseInt(userInput, 10);
+const result = checkThreeDigitNumber(number);
+console.log(result); // Виведе результат в консолі
 
 //4.3
 // Чемпіони у різних видах спорту
@@ -109,3 +119,4 @@ if (birthYear === null) {
         }
     }
 }
+
