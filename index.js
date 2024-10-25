@@ -26,3 +26,31 @@ if (!isNaN(N) && N >= 0) {
 } else {
     console.log("Будь ласка, введіть дійсне ціле число.");
 }
+
+//5.4
+function isPrime(num) {
+
+    if (num <= 1) {
+        return false;
+    }
+
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) {
+            return false; 
+        }
+    }
+    return true; 
+}
+
+let inputNumber = prompt("Введіть ціле число:");
+let number = parseInt(inputNumber);
+
+if (isNaN(number)) {
+    alert("Будь ласка, введіть коректне число.");
+} else {
+    if (isPrime(number)) {
+        alert(number + " є простим числом.");
+    } else {
+        alert(number + " не є простим числом.");
+    }
+}
