@@ -73,26 +73,25 @@
 // alert("Результат: " + result);
 
 //6.2
-// function averageOfNumbers(arr) {
-  
-//     const numbers = arr.filter(item => typeof item === 'number');
-    
-//     if (numbers.length === 0) return 0;
-    
-//     const sum = numbers.reduce((acc, num) => acc + num, 0);
-    
-//     return sum / numbers.length;
-// }
-// const arr = [1, 'hello', 3, true, 5, 'world', 7];
-// console.log(averageOfNumbers(arr));
+function averageOfNumbers(arr) {
+    const numbers = arr.filter(item => typeof item === 'number');
+    if (numbers.length === 0) return 0;
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        sum += numbers[i];
+    }
+    return sum / numbers.length;
+}
+const arr = [1, 'hello', 3, true, 5, 'world', 7];
+console.log(averageOfNumbers(arr)); 
 
 //6.3
-function removeElement(array, item) {
-  const index = array.indexOf(item);
-  if (index !== -1) {
-    array.splice(index, 1);
-  }
-}
-const array = [1, 3, 4, 6, 2, 5, 7];
-removeElement(array, 4);
-console.log(array);
+// function removeElement(array, item) {
+//   const index = array.indexOf(item);
+//   if (index !== -1) {
+//     array.splice(index, 1);
+//   }
+// }
+// const array = [1, 3, 4, 6, 2, 5, 7];
+// removeElement(array, 4);
+// console.log(array);
