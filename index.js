@@ -56,20 +56,32 @@
 // }
 
 //6.1
-function removeCharacters(str, charsToRemove) {
-    let result = str;
-    charsToRemove.forEach(char => {
-        result = result.split(char).join('');
-    });
-    return result;
+// function removeCharacters(str, charsToRemove) {
+//     let result = str;
+//     charsToRemove.forEach(char => {
+//         result = result.split(char).join('');
+//     });
+//     return result;
+// }
+// const inputString = prompt("Введіть рядок:");
+
+// const charsToRemoveInput = prompt("Введіть символи для видалення через кому (наприклад, l,d):");
+
+// const charsToRemove = charsToRemoveInput.split(',').map(char => char.trim());
+
+// const result = removeCharacters(inputString, charsToRemove);
+// alert("Результат: " + result);
+
+//6.2
+function averageOfNumbers(arr) {
+  
+    const numbers = arr.filter(item => typeof item === 'number');
+    
+    if (numbers.length === 0) return 0;
+    
+    const sum = numbers.reduce((acc, num) => acc + num, 0);
+    
+    return sum / numbers.length;
 }
-const inputString = prompt("Введіть рядок:");
-
-const charsToRemoveInput = prompt("Введіть символи для видалення через кому (наприклад, l,d):");
-
-const charsToRemove = charsToRemoveInput.split(',').map(char => char.trim());
-
-const result = removeCharacters(inputString, charsToRemove);
-alert("Результат: " + result);
-
-
+const arr = [1, 'hello', 3, true, 5, 'world', 7];
+console.log(averageOfNumbers(arr));
