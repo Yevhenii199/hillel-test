@@ -20,3 +20,27 @@ function multiply(a) {
   };
 }
 const result = multiply(5)(2); 
+
+//7.3
+function requestNumber() {
+  let input;
+  
+  for (let i = 0; i < 10; i++) {
+    input = prompt("Введіть число більше 100:");
+    
+    if (input === null) {
+      console.log("Користувач відмінив ввод.");
+      return; 
+    }
+    
+    input = Number(input); 
+    if (input > 100) {
+      console.log("Останнє дійсне введення:", input);
+      return; 
+    }
+  }
+  
+  console.log("Останнє введення після 10 спроб:", input); 
+}
+
+requestNumber();
