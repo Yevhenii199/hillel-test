@@ -3,25 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таблиця Піфагора</title>
+    <title>Зміна кольору тексту</title>
     <style>
-        table {
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 5px 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f0f0f0;
+        #text {
+            font-size: 20px;
+            color: black; 
         }
     </style>
 </head>
 <body>
-    <div id="tableContainer"></div>
+    <div id="text">Це текст, який змінює колір</div>
+    <button id="toggleColor">Змінити колір</button>
 
-    <script src="script.js"></script>
+    <script>
+
+        const textElement = document.getElementById('text');
+        const button = document.getElementById('toggleColor');
+
+        let isBlack = true;
+
+        button.addEventListener('click', function () {
+            if (isBlack) {
+                textElement.style.color = 'red'; 
+            } else {
+                textElement.style.color = 'black'; 
+            }
+            isBlack = !isBlack; 
+        });
+    </script>
 </body>
 </html>
