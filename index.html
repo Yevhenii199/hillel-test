@@ -3,32 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зміна кольору тексту</title>
-    <style>
-        #text {
-            font-size: 20px;
-            color: black; 
-        }
-    </style>
+    <title>Випадкове зображення</title>
 </head>
 <body>
-    <div id="text">Це текст, який змінює колір</div>
-    <button id="toggleColor">Змінити колір</button>
+    <div id="image-container">
+        <img id="random-image" src="" alt="Випадкове зображення" style="width:300px; height:auto;">
+    </div>
+    <button id="show-random">Показати випадкове зображення</button>
 
     <script>
 
-        const textElement = document.getElementById('text');
-        const button = document.getElementById('toggleColor');
+        const images = [
+            '1.jpg', '2.jpg', '3.jpg', '4.jpg',
+            '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg'
+        ];
 
-        let isBlack = true;
+        const button = document.getElementById('show-random');
+        const imageElement = document.getElementById('random-image');
 
         button.addEventListener('click', function () {
-            if (isBlack) {
-                textElement.style.color = 'red'; 
-            } else {
-                textElement.style.color = 'black'; 
-            }
-            isBlack = !isBlack; 
+
+            const randomIndex = Math.floor(Math.random() * images.length);
+
+            imageElement.src = images[randomIndex];
         });
     </script>
 </body>
