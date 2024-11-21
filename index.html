@@ -3,39 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кнопки</title>
+    <title>To-Do List</title>
     <style>
-        .container {
-            display: flex;
-            gap: 10px;
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+
+        li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+
+        input {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="buttonContainer">
-        <button class="button">Кнопка 1</button>
-        <button class="button">Кнопка 2</button>
-        <button class="button">Кнопка 3</button>
-    </div>
+    <h1>To-Do List</h1>
+    <ul id="task-list">
+        <li>Завдання 1 <button class="delete-btn">Видалити</button></li>
+        <li>Завдання 2 <button class="delete-btn">Видалити</button></li>
+        <li>Завдання 3 <button class="delete-btn">Видалити</button></li>
+    </ul>
+    <input type="text" id="new-task" placeholder="Додати нове завдання">
+    <button id="add-task-btn">Додати</button>
 
     <script>
- 
-        const container = document.getElementById('buttonContainer');
 
-        container.addEventListener('click', (event) => {
+        const taskList = document.getElementById('task-list');
+        const newTaskInput = document.getElementById('new-task');
+        const addTaskButton = document.getElementById('add-task-btn');
 
-            if (event.target.tagName === 'BUTTON') {
-                const buttonText = event.target.textContent; // Текст кнопки
-                alert(`Клікнуто на кнопці: ${buttonText}`);
+        taskList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-btn')) {
+                const taskItem = event.target.parentElement;
+                taskList.removeChild(taskItem);
+            }
+        });
+
+        addTaskButton.addEventListener('click', function() {
+            const taskText = newTaskInput.value.trim();
+            if (taskText) {
+
+                const newTaskItem = document.createElement('li');
+                newTaskItem.innerHTML = `${taskText} <button class="delete-btn">Видалити</button>`;
+                taskList.appendChild(newTaskItem);
+
+                newTaskInput.value = '';
             }
         });
     </script>
 </body>
 </html>
-
-
