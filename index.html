@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редирект за посиланням</title>
+    <title>Кнопки</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-
-    <button id="setLink">Ввести посилання</button>
-
-    <button id="goToLink">Перейти за посиланням</button>
+    <div class="container" id="buttonContainer">
+        <button class="button">Кнопка 1</button>
+        <button class="button">Кнопка 2</button>
+        <button class="button">Кнопка 3</button>
+    </div>
 
     <script>
+ 
+        const container = document.getElementById('buttonContainer');
 
-        let userLink = '';
-        const setLinkButton = document.getElementById('setLink');
-        setLinkButton.addEventListener('click', function () {
-            const link = prompt('Введіть посилання:');
-            if (link) {
-                userLink = link;
-                alert(`Посилання збережено: ${userLink}`);
-            } else {
-                alert('Ви не ввели посилання!');
+        container.addEventListener('click', (event) => {
+
+            if (event.target.tagName === 'BUTTON') {
+                const buttonText = event.target.textContent; // Текст кнопки
+                alert(`Клікнуто на кнопці: ${buttonText}`);
             }
         });
-
-        const goToLinkButton = document.getElementById('goToLink');
-        goToLinkButton.addEventListener('click', function () {
-            if (userLink) {
-                window.location.href = userLink; 
-            } else {
-                alert('Спочатку введіть посилання!');
-            }
-        });
-
     </script>
-    
 </body>
 </html>
+
+
