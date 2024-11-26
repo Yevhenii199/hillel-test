@@ -1,64 +1,110 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
+    <title>Form Validation</title>
     <style>
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
-        li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
+.form-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    box-sizing: border-box;
+}
 
-        button {
-            margin-left: 10px;
-        }
+h1 {
+    font-size: 1.5em;
+    color: #d32f2f;
+    margin-bottom: 20px;
+}
 
-        input {
-            margin-top: 20px;
-        }
+h2 {
+    font-size: 1.1em;
+    color: #666;
+    margin-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+input, textarea, button {
+    font-size: 1em;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 400px;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
     </style>
 </head>
 <body>
-    <h1>To-Do List</h1>
-    <ul id="task-list">
-        <li>Завдання 1 <button class="delete-btn">Видалити</button></li>
-        <li>Завдання 2 <button class="delete-btn">Видалити</button></li>
-        <li>Завдання 3 <button class="delete-btn">Видалити</button></li>
-    </ul>
-    <input type="text" id="new-task" placeholder="Додати нове завдання">
-    <button id="add-task-btn">Додати</button>
+    <form id="contactForm">
+        <h1>We would like to help you</h1>
+        <label>
+            <input type="text" placeholder="Name" id="name" name="name">
+        </label>
+        
+        <div id="nameError" class="error"></div>
 
-    <script>
+        <label>
+            <textarea id="message" placeholder="Message" name="message"></textarea>
+        </label>
 
-        const taskList = document.getElementById('task-list');
-        const newTaskInput = document.getElementById('new-task');
-        const addTaskButton = document.getElementById('add-task-btn');
+        <div id="messageError" class="error"></div>
 
-        taskList.addEventListener('click', function(event) {
-            if (event.target.classList.contains('delete-btn')) {
-                const taskItem = event.target.parentElement;
-                taskList.removeChild(taskItem);
-            }
-        });
+        <h2>How to answer you ?</h2>
+        <label>
+            <input type="text" id="phone" placeholder="Phone number" name="phone">
+        </label>
 
-        addTaskButton.addEventListener('click', function() {
-            const taskText = newTaskInput.value.trim();
-            if (taskText) {
+        <div id="phoneError" class="error"></div>
 
-                const newTaskItem = document.createElement('li');
-                newTaskItem.innerHTML = `${taskText} <button class="delete-btn">Видалити</button>`;
-                taskList.appendChild(newTaskItem);
+        <label>
+            <input type="email" id="email" placeholder="Email" name="email">
+        </label>
 
-                newTaskInput.value = '';
-            }
-        });
-    </script>
+        <div id="emailError" class="error"></div>
+
+        <button type="submit">Send message</button>
+    </form>
+
+    <script src="index.js"></script>
 </body>
 </html>
