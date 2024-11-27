@@ -4,11 +4,12 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
     // Очищення попередніх помилок
     clearErrors();
 
-    // Отримання значень полів
-    const name = document.getElementById("name").value.trim();
-    const message = document.getElementById("message").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
+    // Отримання даних форми
+    const formData = new FormData(e.target);
+    const name = formData.get("name").trim();
+    const message = formData.get("message").trim();
+    const phone = formData.get("phone").trim();
+    const email = formData.get("email").trim();
 
     // Прапор для відстеження, чи є помилки
     let hasError = false;
@@ -64,6 +65,9 @@ function clearErrors() {
     document.querySelectorAll("input, textarea").forEach(input => input.classList.remove("input-error"));
 }
 
-function markFieldError(fieldId) {
-    document.getElementById(fieldId).classList.add("input-error");
+function markFieldError(fieldName) {
+    const field = document.querySelector(`[name="${fieldName}"]`);
+    if (field) {
+        field.classList.add("input-error");
+    }
 }
