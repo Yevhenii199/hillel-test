@@ -1,110 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Validation</title>
-    <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    .slider {
+      position: relative;
+      width: 600px;
+      overflow: hidden;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background: #fff;
+    }
+    img {
+      width: 760px;
+      height: 560px;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .navigation {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .nav-btn {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 18px;
+      display: none;
+    }
+    .nav-btn.show {
+      display: block;
+    }
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .dot.active {
+      background-color: #007BFF;
+    }
+    .h3-caps {
+    color: #007BFF;
+    }
+    .hero {
+    color: red;
+    }
 
-.form-container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 400px;
-    box-sizing: border-box;
-}
-
-h1 {
-    font-size: 1.5em;
-    color: #d32f2f;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 1.1em;
-    color: #666;
-    margin-top: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-input, textarea, button {
-    font-size: 1em;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    width: 400px;
-}
-
-textarea {
-    resize: none;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-    </style>
+  </style>
 </head>
+
 <body>
-    <form id="contactForm">
-        <h1>We would like to help you</h1>
-        <label>
-            <input type="text" placeholder="Name" id="name" name="name">
-        </label>
-        
-        <div id="nameError" class="error"></div>
 
-        <label>
-            <textarea id="message" placeholder="Message" name="message"></textarea>
-        </label>
+<div class="slider">
+  <div class="slides">
+        <div class="slide">
 
-        <div id="messageError" class="error"></div>
+            <img src="images/image1.png" alt="Slide 1">
 
-        <h2>How to answer you ?</h2>
-        <label>
-            <input type="text" id="phone" placeholder="Phone number" name="phone">
-        </label>
+             <h3 class="h3-caps">Комманда ></h3>
 
-        <div id="phoneError" class="error"></div>
+            <span class="hero">
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+             </span>
 
-        <label>
-            <input type="email" id="email" placeholder="Email" name="email">
-        </label>
+             <h4>Олександр Олександровський</h4>
 
-        <div id="emailError" class="error"></div>
+             <p>Керуючий партнер</p>
 
-        <button type="submit">Send message</button>
-    </form>
+        </div>
 
-    <script src="index.js"></script>
+        <div class="slide">
+
+            <img src="images/image2.png" alt="Slide 2">
+
+            <h3 class="h3-caps">Комманда ></h3>
+
+            <span class="hero">
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+             </span>
+
+             <h4>Олександр Олександровський</h4>
+
+             <p>Керуючий партнер</p>
+
+        </div>
+
+        <div class="slide">
+
+            <img src="images/image3.png" alt="Slide 3">
+
+            <h3 class="h3-caps">Комманда ></h3>
+
+            <span class="hero">
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+             </span>
+
+             <h4>Олександр Олександровський</h4>
+
+             <p>Керуючий партнер</p>
+
+        </div>
+  </div>
+
+  <div class="navigation">
+        <button class="nav-btn prev">&#10094;</button>
+        <button class="nav-btn next">&#10095;</button>
+  </div>
+  <div class="dots">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelector('.slides');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  const dots = document.querySelectorAll('.dot');
+  const slideCount = document.querySelectorAll('.slide').length;
+  let currentIndex = 0;
+
+  function updateSlider() {
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    prevBtn.classList.toggle('show', currentIndex > 0);
+    nextBtn.classList.toggle('show', currentIndex < slideCount - 1);
+
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[currentIndex].classList.add('active');
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < slideCount - 1) {
+      currentIndex++;
+      updateSlider();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      currentIndex = parseInt(e.target.dataset.index, 10);
+      updateSlider();
+    });
+  });
+
+  updateSlider();
+</script>
+
 </body>
 </html>
