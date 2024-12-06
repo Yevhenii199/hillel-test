@@ -1,199 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Slider</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f4f4f9;
-    }
-    .slider {
-      position: relative;
-      width: 600px;
-      overflow: hidden;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      background: #fff;
-    }
-    img {
-      width: 760px;
-      height: 560px;
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .slide {
-      min-width: 100%;
-      box-sizing: border-box;
-    }
-    .slide img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .navigation {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 10px;
-    }
-    .nav-btn {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 50%;
-      font-size: 18px;
-      display: none;
-    }
-    .nav-btn.show {
-      display: block;
-    }
-    .dots {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      margin: 0 5px;
-      background-color: #ccc;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .dot.active {
-      background-color: #007BFF;
-    }
-    .h3-caps {
-    color: #007BFF;
-    }
-    .hero {
-    color: red;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-  </style>
+        .todo-container {
+            background-color: #a5d6a7;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+        }
+
+        .todo-form {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .todo-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .todo-form button {
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .todo-form button:hover {
+            background-color: #2e7d32;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #c8e6c9;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .todo-item button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .todo-item button:hover {
+            background-color: #b71c1c;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="todo-container">
+        <h1>ToDo List</h1>
+        <form class="todo-form" id="todoForm">
+            <input type="text" id="todoInput" placeholder="Додайте нове завдання">
+            <button type="submit">Додати</button>
+        </form>
+        <div id="todoList"></div>
+    </div>
 
-<div class="slider">
-  <div class="slides">
-        <div class="slide">
+    <script>
+        const todoForm = document.getElementById('todoForm');
+        const todoInput = document.getElementById('todoInput');
+        const todoList = document.getElementById('todoList');
 
-            <img src="images/image1.png" alt="Slide 1">
+        // Завантаження списку завдань із localStorage
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-             <h3 class="h3-caps">Комманда ></h3>
+        function saveTodos() {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
 
-            <span class="hero">
-                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
-                    навіть у ситуаціях, коли більшість безсилі.
-             </span>
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const todoItem = document.createElement('div');
+                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
 
-             <h4>Олександр Олександровський</h4>
+                const todoText = document.createElement('span');
+                todoText.textContent = todo.text;
+                todoText.addEventListener('click', () => {
+                    todos[index].completed = !todos[index].completed;
+                    saveTodos();
+                    renderTodos();
+                });
 
-             <p>Керуючий партнер</p>
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Видалити';
+                deleteButton.addEventListener('click', () => {
+                    todos.splice(index, 1);
+                    saveTodos();
+                    renderTodos();
+                });
 
-        </div>
+                todoItem.appendChild(todoText);
+                todoItem.appendChild(deleteButton);
+                todoList.appendChild(todoItem);
+            });
+        }
 
-        <div class="slide">
+        todoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const newTodoText = todoInput.value.trim();
 
-            <img src="images/image2.png" alt="Slide 2">
+            if (newTodoText !== '') {
+                todos.push({ text: newTodoText, completed: false });
+                saveTodos();
+                renderTodos();
+                todoInput.value = '';
+            }
+        });
 
-            <h3 class="h3-caps">Комманда ></h3>
-
-            <span class="hero">
-                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
-                    навіть у ситуаціях, коли більшість безсилі.
-             </span>
-
-             <h4>Олександр Олександровський</h4>
-
-             <p>Керуючий партнер</p>
-
-        </div>
-
-        <div class="slide">
-
-            <img src="images/image3.png" alt="Slide 3">
-
-            <h3 class="h3-caps">Комманда ></h3>
-
-            <span class="hero">
-                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
-                    навіть у ситуаціях, коли більшість безсилі.
-             </span>
-
-             <h4>Олександр Олександровський</h4>
-
-             <p>Керуючий партнер</p>
-
-        </div>
-  </div>
-
-  <div class="navigation">
-        <button class="nav-btn prev">&#10094;</button>
-        <button class="nav-btn next">&#10095;</button>
-  </div>
-  <div class="dots">
-        <div class="dot active" data-index="0"></div>
-        <div class="dot" data-index="1"></div>
-        <div class="dot" data-index="2"></div>
-  </div>
-</div>
-
-<script>
-  const slides = document.querySelector('.slides');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
-  const dots = document.querySelectorAll('.dot');
-  const slideCount = document.querySelectorAll('.slide').length;
-  let currentIndex = 0;
-
-  function updateSlider() {
-    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-    prevBtn.classList.toggle('show', currentIndex > 0);
-    nextBtn.classList.toggle('show', currentIndex < slideCount - 1);
-
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentIndex].classList.add('active');
-  }
-
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < slideCount - 1) {
-      currentIndex++;
-      updateSlider();
-    }
-  });
-
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateSlider();
-    }
-  });
-
-  dots.forEach(dot => {
-    dot.addEventListener('click', (e) => {
-      currentIndex = parseInt(e.target.dataset.index, 10);
-      updateSlider();
-    });
-  });
-
-  updateSlider();
-</script>
-
+        // Відображення завдань при завантаженні сторінки
+        renderTodos();
+    </script>
 </body>
 </html>
+
+
