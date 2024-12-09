@@ -3,150 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List</title>
+    <title>Image Slider</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e8f5e9;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f4f4f4;
         }
 
-        .todo-container {
-            background-color: #a5d6a7;
-            border-radius: 10px;
-            padding: 20px;
-            width: 400px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .slider {
+            position: relative;
+            width: 300px;
+            overflow: hidden;
         }
 
-        h1 {
-            text-align: center;
-            color: #2e7d32;
-        }
-
-        .todo-form {
+        .slides {
             display: flex;
-            margin-bottom: 10px;
+            transition: transform 0.5s ease-in-out;
         }
 
-        .todo-form input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .slide {
+
+            min-width: 100%;
+            box-sizing: border-box;     
         }
 
-        .todo-form button {
-            background-color: #388e3c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-left: 5px;
-            cursor: pointer;
+        .slide img {
+            width: 100%;
+            height: auto;
         }
 
-        .todo-form button:hover {
-            background-color: #2e7d32;
-        }
-
-        .todo-item {
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #c8e6c9;
-            border-radius: 5px;
-            margin-bottom: 5px;
+            transform: translateY(-50%);
         }
 
-        .todo-item.completed {
-            text-decoration: line-through;
-            color: gray;
-        }
-
-        .todo-item button {
-            background-color: #d32f2f;
-            color: white;
+        .controls button {
+            background-color: rgba(0, 0, 0, 0.5);
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .controls button.show {
+            display: block;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #ccc;
+            border-radius: 50%;
             cursor: pointer;
         }
 
-        .todo-item button:hover {
-            background-color: #b71c1c;
+        .dot.active {
+            background-color: #333;
+        }
+
+        h3{
+            color: #333;
+        }
+
+        h1{
+            color: red;
         }
     </style>
 </head>
 <body>
-    <div class="todo-container">
-        <h1>ToDo List</h1>
-        <form class="todo-form" id="todoForm">
-            <input type="text" id="todoInput" placeholder="Додайте нове завдання">
-            <button type="submit">Додати</button>
-        </form>
-        <div id="todoList"></div>
+    <div class="slider">
+
+        <div class="slides">
+
+            <div class="slide">
+                <img src="images/image1.png" alt="Slide 1">
+                <h3>КОМАНДА></h3>
+                <h1>
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+                </h1>
+                <h3>Олександр Олександровський</h3>
+                <h3>Керуючий партнер</h3>
+            </div>
+
+            <div class="slide">
+                <img src="images/image2.png" alt="Slide 2">
+                <h3>КОМАНДА></h3>
+                <h1>
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+                </h1>
+                <h3>Олександр Олександровський</h3>
+                <h3>Керуючий партнер</h3>
+            </div>
+
+            <div class="slide">
+                <img src="images/image3.png" alt="Slide 3">
+                <h3>КОМАНДА></h3>
+                <h1>
+                    Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу,
+                    навіть у ситуаціях, коли більшість безсилі.
+                </h1>
+                <h3>Олександр Олександровський</h3>
+                <h3>Керуючий партнер</h3>
+            </div>
+
+        </div>
+
+        <div class="controls">
+            <button id="prev">Prev</button>
+            <button id="next">Next</button>
+        </div>
+
+        <div class="dots"></div>
+
     </div>
 
     <script>
-        const todoForm = document.getElementById('todoForm');
-        const todoInput = document.getElementById('todoInput');
-        const todoList = document.getElementById('todoList');
+        const slides = document.querySelector('.slides');
+        const slideElements = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const dotsContainer = document.querySelector('.dots');
 
-        // Завантаження списку завдань із localStorage
-        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        let currentIndex = 0;
 
-        function saveTodos() {
-            localStorage.setItem('todos', JSON.stringify(todos));
-        }
+        function updateSlider() {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-        function renderTodos() {
-            todoList.innerHTML = '';
-            todos.forEach((todo, index) => {
-                const todoItem = document.createElement('div');
-                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+            prevButton.classList.toggle('show', currentIndex > 0);
+            nextButton.classList.toggle('show', currentIndex < slideElements.length - 1);
 
-                const todoText = document.createElement('span');
-                todoText.textContent = todo.text;
-                todoText.addEventListener('click', () => {
-                    todos[index].completed = !todos[index].completed;
-                    saveTodos();
-                    renderTodos();
-                });
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Видалити';
-                deleteButton.addEventListener('click', () => {
-                    todos.splice(index, 1);
-                    saveTodos();
-                    renderTodos();
-                });
-
-                todoItem.appendChild(todoText);
-                todoItem.appendChild(deleteButton);
-                todoList.appendChild(todoItem);
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
             });
         }
 
-        todoForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const newTodoText = todoInput.value.trim();
+        function createDots() {
+            slideElements.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dotsContainer.appendChild(dot);
+            });
+        }
 
-            if (newTodoText !== '') {
-                todos.push({ text: newTodoText, completed: false });
-                saveTodos();
-                renderTodos();
-                todoInput.value = '';
+        function handleDotClick(event) {
+            if (event.target.classList.contains('dot')) {
+                const dots = Array.from(dotsContainer.children);
+                currentIndex = dots.indexOf(event.target);
+                updateSlider();
+            }
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
             }
         });
 
-        // Відображення завдань при завантаженні сторінки
-        renderTodos();
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < slideElements.length - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        });
+
+        dotsContainer.addEventListener('click', handleDotClick);
+
+        createDots();
+        updateSlider();
     </script>
 </body>
 </html>
