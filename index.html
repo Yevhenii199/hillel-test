@@ -8,29 +8,30 @@
 <body>
 <script>
   
-    const calculator = {
-        add: function (a, b) {
-            return a + b;
-        },
-        subtract: function (a, b) {
-            return a - b;
-        },
-        multiply: function (a, b) {
-            return a * b;
-        },
-        divide: function (a, b) {
-            if (b !== 0) {
-                return a / b;
-            } else {
-                return "Помилка: ділення на нуль!";
-            }
-        }
-    };
+class Calculator {
+  add(a, b) {
+    return a + b;
+  }
+  subtract(a, b) {
+    return a - b;
+  }
+  multiply(a, b) {
+    return a * b;
+  }
+  divide(a, b) {
+    if (b === 0) {
+      throw new Error("Ділення на нуль не дозволене");
+    }
+    return a / b;
+  }
+}
 
-    console.log(calculator.add(5, 3)); 
-    console.log(calculator.subtract(10, 4));
-    console.log(calculator.multiply(3, 6));
-    console.log(calculator.divide(8, 2));
+const calc = new Calculator();
+
+console.log(calc.add(5, 3)); 
+console.log(calc.subtract(10, 4)); 
+console.log(calc.multiply(3, 6)); 
+console.log(calc.divide(8, 2));
 
 </script>
 </body>
