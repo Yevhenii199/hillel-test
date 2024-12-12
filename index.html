@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>calculator</title>
+    <title>BankAccount</title>
 </head>
 <body>
 <script>
-  
-class Coach {
-  constructor(name, specialization, rating) {
-    this.name = name;
-    this.specialization = specialization; 
-    this.rating = rating; 
-  }
+    class BankAccount {
+    constructor(initialBalance) {
+        this.balance = initialBalance;
+    }
 
-  displayInfo() {
-    console.log(`Coach: ${this.name}, Specialization: ${this.specialization}, Rating: ${this.rating}`);
-  }
+    // Метод для отримання балансу
+    getBalance() {
+        return this.balance;
+    }
+
+    // Метод для внесення грошей
+    deposit(amount) {
+        if (amount > 0) {
+            this.balance += amount;
+        } else {
+            console.error('Сума повинна бути більшою за 0');
+        }
+    }
+
+    // Метод для зняття грошей
+    withdraw(amount) {
+        if (amount > 0 && amount <= this.balance) {
+            this.balance -= amount;
+        } else if (amount > this.balance) {
+            console.error('Недостатньо коштів на рахунку');
+        } else {
+            console.error('Сума повинна бути більшою за 0');
+        }
+    }
 }
 
-const coach1 = new Coach('John Doe', 'Fitness', 4.7);
-const coach2 = new Coach('Alice Smith', 'Yoga', 4.9);
+const account1 = new BankAccount(1000);
 
-coach1.displayInfo(); 
-coach2.displayInfo(); 
+console.log(account1.getBalance()); 
 
+account1.deposit(500);
+
+console.log(account1.getBalance()); 
 </script>
 </body>
 </html>
