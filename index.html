@@ -3,48 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BankAccount</title>
+    <title>Таймер</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .timer {
+            font-size: 48px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<script>
-    class BankAccount {
-    constructor(initialBalance) {
-        this.balance = initialBalance;
-    }
+    <div class="timer" id="timer">00:00</div>
 
-    // Метод для отримання балансу
-    getBalance() {
-        return this.balance;
-    }
+    <script>
+        // Початковий час у секундах
+        let startTime = 85; // 1 хвилина 25 секунд
 
-    // Метод для внесення грошей
-    deposit(amount) {
-        if (amount > 0) {
-            this.balance += amount;
-        } else {
-            console.error('Сума повинна бути більшою за 0');
+        // Елемент для відображення часу
+        const timerElement = document.getElementById('timer');
+
+        // Функція форматування часу у формат MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
-    }
 
-    // Метод для зняття грошей
-    withdraw(amount) {
-        if (amount > 0 && amount <= this.balance) {
-            this.balance -= amount;
-        } else if (amount > this.balance) {
-            console.error('Недостатньо коштів на рахунку');
-        } else {
-            console.error('Сума повинна бути більшою за 0');
+        // Оновлення таймера кожну секунду
+        function startTimer(duration) {
+            let timeLeft = duration;
+
+            // Встановлення початкового значення
+            timerElement.textContent = formatTime(timeLeft);
+
+            const intervalId = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = formatTime(timeLeft);
+
+                // Зупинка таймера, коли час вичерпано
+                if (timeLeft <= 0) {
+                    clearInterval(intervalId);
+                }
+            }, 1000);
         }
-    }
-}
 
-const account1 = new BankAccount(1000);
-
-console.log(account1.getBalance()); 
-
-account1.deposit(500);
-
-console.log(account1.getBalance()); 
-</script>
+        // Запуск таймера
+        startTimer(startTime);
+    </script>
 </body>
 </html>
