@@ -1,6 +1,3 @@
-const apiKey = "YOUR_API_KEY";
-const city = "YOUR_CITY";
-
 async function fetchWeatherData() {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=kyiv&appid=4b66898d580ed04e385257389199fb2f
