@@ -24,11 +24,6 @@ body {
     font-size: 14px;
 }
 
-#current-time {
-    font-size: 36px;
-    margin: 10px 0;
-}
-
 .weather-details {
     margin: 15px 0;
 }
