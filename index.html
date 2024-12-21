@@ -1,61 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таймер</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .timer {
-            font-size: 48px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Widget</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="timer" id="timer">00:00</div>
-
-    <script>
-        // Початковий час у секундах
-        let startTime = 85; // 1 хвилина 25 секунд
-
-        // Елемент для відображення часу
-        const timerElement = document.getElementById('timer');
-
-        // Функція форматування часу у формат MM:SS
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-
-        // Оновлення таймера кожну секунду
-        function startTimer(duration) {
-            let timeLeft = duration;
-
-            // Встановлення початкового значення
-            timerElement.textContent = formatTime(timeLeft);
-
-            const intervalId = setInterval(() => {
-                timeLeft--;
-                timerElement.textContent = formatTime(timeLeft);
-
-                // Зупинка таймера, коли час вичерпано
-                if (timeLeft <= 0) {
-                    clearInterval(intervalId);
-                }
-            }, 1000);
-        }
-
-        // Запуск таймера
-        startTimer(startTime);
-    </script>
+  <div class="weather-widget">
+    <div class="header">
+      <div class="date-time">
+        <span id="date">Jun 13, 2015 - Sat</span>
+        <span id="battery">🔋 27%</span>
+      </div>
+      <div class="current-time" id="current-time">3:02 PM</div>
+    </div>
+    <div class="weather-details">
+      <div class="temperature">
+        <span id="temp">30°C</span>
+        <span id="feels-like">Feels Like: 32°C</span>
+      </div>
+      <div class="condition" id="condition">Partly Cloudy</div>
+    </div>
+    <div class="extra-info">
+      <span id="humidity">Humidity: 57%</span>
+      <span id="pressure">Pressure: 1015 hPa</span>
+      <span id="wind">Wind: 14 km/h SSE</span>
+    </div>
+    <div class="footer">
+      <span id="last-updated">Jun 13, 11:02 PM</span>
+      <button id="refresh-btn">🔄 Refresh</button>
+    </div>
+  </div>
+  <script src="main.js"></script>
 </body>
 </html>
